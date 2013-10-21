@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Test</title>
+
+</head>
+<body>
+	
+		<input type="text" name="textField">
+		<button type="button" name="submit" id="submit">submit</button>
+	
+
+<script>
+	
+		var computerGuess = Math.floor(Math.random()*100 + 1);
+		var guesses = [];
+		var prevGuess = '';
+		var userGuess = '';
+		console.log(computerGuess);
+		var round = function(){
+
+			userGuess = Number(document.getElementsByName('textField')[0].value);
+
+			if (userGuess !== NaN && (userGuess > 0 && userGuess <= 100)){ //make sure number is valid
+				guesses.push(userGuess);
+				prevGuess = guesses[guesses.length - 2];
+				document.getElementsByName('textField')[0].value = '';
+
+				//do this for the 1st guess
+				if (guesses.length == 1){
+					switch (true){
+					
+					case computerGuess > userGuess && userGuess > (computerGuess - 20):
+					console.log('You\'re warm already!');
+					break;
+
+					case userGuess > computerGuess:
+					console.log('Too high');
+					break;
+
+					case userGuess < computerGuess:
+					console.log('Too low');
+					break;
+
+					case userGuess == computerGuess:
+					console.log('You hit the nail on the head - you win!')
+					document.getElementsByName('submit')[0].onclick = null;
+					}//end switch
+				} else if (guesses.length > 1) {
+					switch (true){
+
+					case userGuess > prevGuess && userGuess < computerGuess:
+					console.log('Getting warmer');
+					break;
+
+					case userGuess > prevGuess && userGuess > computerGuess:
+					console.log('Too high');
+					break;
+
+					//less than the previous guess but higher than the computer guess
+					case userGuess < prevGuess && userGuess > computerGuess:
+					console.log('Still too high');
+					break;
+
+					//less than the previous guess but still within 20 of less than the number
+					case userGuess < prevGuess && (userGuess > (computerGuess - 20) && userGuess < computerGuess):
+					console.log('Too low');
+					break;
+
+					case userGuess < prevGuess && userGuess < computerGuess:
+					console.log('Getting colder');
+					break;
+
+					case userGuess == computerGuess:
+					console.log('You hit the nail on the head - you win!')
+					document.getElementsByName('submit')[0].onclick = null;
+					} //end switch
+				}	//end else if
+		} else {
+			console.log ("Please enter a valid number between 1 and 100");
+		} //end if else to test if valid number
+		
+		}; // end click function
+document.getElementsByName('submit')[0].onclick = round;
+document.getElementsByName('textField')[0].onkeyup = function(){
+	if (event.keycode == 13) 
+	document.getElementsByName('submit')[0].click();
+};
+
+
+
+</script>
+</body>
+</html>
+
+<!--
+var guesses = [ ];
+$(.'submit').click(function(){})
+guesses.push(textField);
+guesses[1,2,3,4,5]
+var textFiled = $('input[type="text"]').val();
+-->
