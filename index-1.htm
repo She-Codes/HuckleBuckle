@@ -3,46 +3,27 @@
 <head>
 <meta charset="utf-8">
 <title>Test</title>
-<style>
-/*input[type="text"]:disabled
-{
-background:#ffff00;
-}
-*/
-</style>
+
 </head>
 <body>
 	
-		<input type="text" name="textField" class="textField" autofocus>
+		<input type="text" name="textField" onkeyup="handleKeyPress">
 		<button type="button" name="submit" id="submit">submit</button>
-		<button type="button" name="reset" id="reset">reset</button>
+	
 <script src="jquery-1.10.2.min.js"></script>
 <script>
+	
 		var computerGuess = Math.floor(Math.random()*100 + 1);
 		var guesses = [];
 		var prevGuess = '';
 		var userGuess = '';
 		console.log(computerGuess);
-		document.getElementsByName('textField')[0].disabled = false;
-		//start game when submit button is clicked
-		var submit = $('#submit');
-		submit.on('click', round);
+		var round = function(){
 
-		//start game when enter is pressed
-		var textField =  $('.textField');
-		textField.on('keydown', function (e) {
-			if(e.which ==  13){
-				//Execute the function
-				round();
-				}
-		});
-
-		function round(){
-			//get the number entered in the text field 
 			userGuess = Number(document.getElementsByName('textField')[0].value);
 
 			if (userGuess !== NaN && (userGuess > 0 && userGuess <= 100)){ //make sure number is valid
-				guesses.push(userGuess); //add the numbers to the guesses array
+				guesses.push(userGuess);
 				prevGuess = guesses[guesses.length - 2];
 				document.getElementsByName('textField')[0].value = '';
 
@@ -64,10 +45,7 @@ background:#ffff00;
 
 					case userGuess == computerGuess:
 					console.log('You hit the nail on the head - you win!')
-					//deactivate the submit button and text field after the winning guess
-					document.getElementsByName('submit')[0].disabled = true;
-					document.getElementsByName('textField')[0].disabled = true;
-					//document.getElementsByName('textField')[0].className = "done";
+					document.getElementsByName('submit')[0].onclick = null;
 					}//end switch
 				// do this for any additional guesses
 				} else if (guesses.length > 1) {
@@ -98,20 +76,24 @@ background:#ffff00;
 
 					case userGuess == computerGuess:
 					console.log('You hit the nail on the head - you win!')
-					//deactivate the submit button and text field after the winning guess
-					document.getElementsByName('submit')[0].disabled = true; 
-					document.getElementsByName('textField')[0].disabled = true;
+					document.getElementsByName('submit')[0].onclick = null;
 					} //end switch
 				}	//end else if
 		} else {
 			console.log ("Please enter a valid number between 1 and 100");
 		} //end if else to test if valid number
-
-		$('#reset').on('click', false);
 		
-		}; // end round function
+		}; // end click function
+document.getElementsByName('submit')[0].onclick = round;
+function handleKeyPress(event){
+	event = event || window.event //For IE
+	if (event.keycode == 13) {
+	round();
+}
+};
 
-	
+
+
 </script>
 </body>
 </html>
