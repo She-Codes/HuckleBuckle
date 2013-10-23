@@ -23,10 +23,22 @@ background:#ffff00;
 		var prevGuess = '';
 		var userGuess = '';
 		console.log(computerGuess);
-		document.getElementsByName('textField')[0].disabled = false;
+
 		//start game when submit button is clicked
 		var submit = $('#submit');
 		submit.on('click', round);
+
+		//reset all variables when the reset button is clicked and have the computer pick a new number
+		//reenable the text field and submit button
+		$('#reset').on('click', function(){
+			computerGuess = Math.floor(Math.random()*100 + 1);
+			guesses = [];
+			prevGuess = '';
+			userGuess = '';
+			console.log(computerGuess);
+			document.getElementsByName('textField')[0].disabled = false;
+			document.getElementsByName('submit')[0].disabled = false;
+		});
 
 		//start game when enter is pressed
 		var textField =  $('.textField');
@@ -106,8 +118,6 @@ background:#ffff00;
 		} else {
 			console.log ("Please enter a valid number between 1 and 100");
 		} //end if else to test if valid number
-
-		$('#reset').on('click', false);
 		
 		}; // end round function
 
