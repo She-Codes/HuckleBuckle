@@ -47,7 +47,7 @@ body {
 
 .wrapper {
 	width: 800px;
-	margin: 150px auto;
+	margin: 90px auto 0;
 }
 
 h1 {
@@ -132,6 +132,18 @@ button {
 	background: rgba(255,255,255,0.8);
 }
 
+.numberHolder {
+	height: 160px;	
+}
+
+.numberHolder p {
+	text-align: center;
+	font-size: 91px;
+	height: 160px;
+	width: 800px;
+	display: table-cell;
+	vertical-align: middle;
+}
 /*blue #6CC6B9 #85f7e6
 red #FA8080
 #f96363*/

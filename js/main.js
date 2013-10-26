@@ -2,7 +2,7 @@ var computerPick = Math.floor(Math.random()*100 + 1);
 var guesses = [];
 var prevGuess = '';
 var userGuess = '';
-var ps = $('.percent span');
+var ps = $('.percent').find('span');
 var spanWidth = '';
 console.log(computerPick);
 
@@ -43,6 +43,10 @@ function round(){
 		guesses.push(userGuess); //add the numbers to the guesses array
 		prevGuess = guesses[guesses.length - 2];
 		document.getElementsByName('textField')[0].value = ''; //clear the text input
+
+		//show number guessed
+		var numberHolder = $('.numberHolder');
+		numberHolder.html('<p>' + userGuess + '</p>');
 
 		//add bar graph code here
 			if (userGuess <= computerPick){
