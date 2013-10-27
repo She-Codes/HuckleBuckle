@@ -19,15 +19,18 @@ background:#ffff00;
 		<h1><span class="hot">Hot</span> or <span class="cold">Cold</span></h1>
 		<p>I picked a number between 1 and 100 - can you guess what it is?</p>
 
-			<div class="odometer numberHolder">
+			<div class="odometer numberHolder"></div><!--end .odometer-->
 
-			</div><!--end .odometer-->
+
 
 			<div class="bar">
 				<div class="percent">
 					<span></span>
 				</div><!--end .percent-->
 			</div><!--end .bar-->
+
+			<div class="feedback"><p>Take a guess!</p></div>
+			<div class="history"><ul></ul></div>
 
 			<input type="text" name="textField" class="textField" autofocus>
 			<div class="button-holder">
@@ -40,8 +43,8 @@ background:#ffff00;
 	</div><!--end .wrapper-->
 
 <script src="jquery-1.10.2.min.js"></script>
-<script src="js/main.js"></script>
 <script src="js/odometer.min.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
 

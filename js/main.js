@@ -4,6 +4,7 @@ var prevGuess = '';
 var userGuess = '';
 var ps = $('.percent').find('span');
 var spanWidth = '';
+var feedback = $('.feedback');
 console.log(computerPick);
 
 //start game when submit button is clicked
@@ -20,6 +21,9 @@ $('#reset').on('click', function(){
 	console.log(computerPick);
 	document.getElementsByName('textField')[0].disabled = false;
 	document.getElementsByName('submit')[0].disabled = false;
+	$('.history ul').empty();
+	$('.odometer').removeClass('red');
+	$('.odometer').html(0);
 	spanWidth = {
 				width: '100%'
 				};
@@ -42,11 +46,11 @@ function round(){
 	if (userGuess !== NaN && (userGuess > 0 && userGuess <= 100)){ //make sure number is valid
 		guesses.push(userGuess); //add the numbers to the guesses array
 		prevGuess = guesses[guesses.length - 2];
+		$('.history ul').append('<li>' + userGuess + '</li>');
 		document.getElementsByName('textField')[0].value = ''; //clear the text input
 
 		//show number guessed
-		var numberHolder = $('.numberHolder');
-		numberHolder.html('<p>' + userGuess + '</p>');
+		$('.odometer').html(userGuess);
 
 		//add bar graph code here
 			if (userGuess <= computerPick){
@@ -70,21 +74,26 @@ function round(){
 			
 			case computerPick > userGuess && userGuess > (computerPick - 20):
 			console.log('You\'re warm already!');
+			feedback.html('<p>You\'re warm already!</p>');
 			break;
 
 			case userGuess > computerPick:
 			console.log('Too high');
+			feedback.html('<p>Too high</p>');
 			break;
 
 			case userGuess < computerPick:
 			console.log('Too low');
+			feedback.html('<p>Too low</p>');
 			break;
 
 			case userGuess == computerPick:
-			console.log('You hit the nail on the head - you win!')
+			console.log('You hit the nail on the head - you win!');
+			feedback.html('<p>You hit the nail on the head - you win!</p>');
 			//deactivate the submit button and text field after the winning guess
 			document.getElementsByName('submit')[0].disabled = true;
 			document.getElementsByName('textField')[0].disabled = true;
+			$('.odometer').addClass('red');
 			//document.getElementsByName('textField')[0].className = "done";
 			}//end switch
 		// do this for any additional guesses
@@ -92,37 +101,38 @@ function round(){
 			switch (true){
 
 			case userGuess > prevGuess && userGuess < computerPick:
-			console.log('Getting warmer');
+			feedback.html('<p>Getting warmer</p>');
 			break;
 
 			//higher than the previous guess and higher than the computer guess
 			case userGuess > prevGuess && userGuess > computerPick:
-			console.log('Too high');
+			feedback.html('<p>Too high</p>');
 			break;
 
 			//less than the previous guess but higher than the computer guess
 			case userGuess < prevGuess && userGuess > computerPick:
-			console.log('Still too high');
+			feedback.html('<p>Still too high</p>');
 			break;
 
 			//less than the previous guess but still within 20 of less than the number
 			case userGuess < prevGuess && (userGuess > (computerPick - 20) && userGuess < computerPick):
-			console.log('Too low');
+			feedback.html('<p>Go higher</p>');
 			break;
 
 			case userGuess < prevGuess && userGuess < computerPick:
-			console.log('Getting colder');
+			feedback.html('<p>Getting colder</p>');
 			break;
 
 			case userGuess == computerPick:
-			console.log('You hit the nail on the head - you win!')
+			feedback.html('<p>You hit the nail on the head - you win!');
 			//deactivate the submit button and text field after the winning guess
 			document.getElementsByName('submit')[0].disabled = true; 
 			document.getElementsByName('textField')[0].disabled = true;
+			$('.odometer').addClass('red');
 			} //end switch
 		}	//end else if
 } else {
-	console.log ("Please enter a valid number between 1 and 100");
+	feedback.html('<p>Please enter a valid number between 1 and 100</p>');
 } //end if else to test if valid number
 
 }; // end round function
