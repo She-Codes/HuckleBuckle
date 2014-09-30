@@ -85,6 +85,7 @@ button {
 	border: 3px solid;
 	width: 132px;
 	cursor: pointer;
+	float: left;
 }
 
 .cold, #reset {
